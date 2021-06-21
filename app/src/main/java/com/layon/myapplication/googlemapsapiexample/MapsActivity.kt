@@ -1,5 +1,6 @@
 package com.layon.myapplication.googlemapsapiexample
 
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.layon.myapplication.googlemapsapiexample.databinding.ActivityMapsBinding
@@ -44,6 +46,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         // Add a marker in Sydney and move the camera
         val DF = LatLng(-15.7751885, -48.3575963) //-15.7751885,-48.3575963
 
+        //add circle
+        val circleOptions = CircleOptions()
+        circleOptions.center(DF)
+        circleOptions.radius(5000.0) //em metros
+        circleOptions.strokeWidth(10f)
+        circleOptions.strokeColor(Color.GRAY)
+        circleOptions.fillColor(Color.argb(128, 255, 153, 0))
+        mMap.addCircle(circleOptions)
+
         //-23.583083,-46.6666227
         mMap.setOnMapClickListener {
             val latitude = it.latitude
@@ -66,6 +77,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .title("Distrito Federal")
             .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconfinder_2526573_transportation_vehicle_icon_64px)))
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(DF, 12f)) //Zoom 2.0 - 21
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(DF, 15f)) //Zoom 2.0 - 21
     }
 }
