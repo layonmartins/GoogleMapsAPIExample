@@ -8,10 +8,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.CircleOptions
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.layon.myapplication.googlemapsapiexample.databinding.ActivityMapsBinding
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -47,19 +44,37 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val DF = LatLng(-15.7751885, -48.3575963) //-15.7751885,-48.3575963
 
         //add circle
-        val circleOptions = CircleOptions()
+        /*val circleOptions = CircleOptions()
         circleOptions.center(DF)
         circleOptions.radius(5000.0) //em metros
         circleOptions.strokeWidth(10f)
         circleOptions.strokeColor(Color.GRAY)
         circleOptions.fillColor(Color.argb(128, 255, 153, 0))
-        mMap.addCircle(circleOptions)
+        mMap.addCircle(circleOptions)*/
+
+        //add polygonOptions
+        /*val polygonOptions = PolygonOptions()
+        polygonOptions.add(LatLng(-15.7131369,-48.9428058))
+        polygonOptions.add(LatLng(-15.8353824,-48.5830035))
+        polygonOptions.add(LatLng(-15.729661,-48.2789487))
+        polygonOptions.strokeColor(Color.GREEN)
+        polygonOptions.fillColor(Color.argb(128, 255, 153, 0))
+        polygonOptions.strokeWidth(10f)
+        mMap.addPolygon(polygonOptions)*/
 
         //-23.583083,-46.6666227
         mMap.setOnMapClickListener {
             val latitude = it.latitude
             val longitude = it.longitude
             Toast.makeText(this, "Latitude: $latitude longitude: $longitude", Toast.LENGTH_LONG).show()
+
+            val polylineOptions = PolylineOptions()
+            polylineOptions.add(DF)
+            polylineOptions.add(it)
+            polylineOptions.color(Color.BLUE)
+            polylineOptions.width(20f)
+            mMap.addPolyline(polylineOptions)
+
             mMap.addMarker(MarkerOptions()
                 .position(it)
                 .title("Local")
@@ -77,6 +92,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .title("Distrito Federal")
             .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconfinder_2526573_transportation_vehicle_icon_64px)))
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(DF, 15f)) //Zoom 2.0 - 21
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(DF, 10f)) //Zoom 2.0 - 21
     }
 }
